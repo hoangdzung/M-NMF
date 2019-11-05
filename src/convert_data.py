@@ -6,4 +6,4 @@ npyfile = sys.argv[1]
 csvfile = sys.argv[2]
 
 edge_index = np.load(npyfile)
-pd.DataFrame(edge_index).to_csv(csvfile,index=None, header=['node_1','node_2'])
+pd.DataFrame(edge_index.T).to_csv(csvfile,index=None, header=['node_1','node_2'])
