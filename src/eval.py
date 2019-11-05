@@ -5,13 +5,25 @@ from sklearn.linear_model import LogisticRegression
 import numpy as np 
 import pandas as pd
 import sys 
+import argparse
 
-xcsvfile = sys.argv[1]
-ynpyfile = sys.argv[2]
+parser = argparse.ArgumentParser()
+parser.add_argument("--csv")
+parser.add_argument("--x")
+parser.add_argument("--y")
+parser.add_argument("--prob")
+args = parser.parse_args()
 
-df=pd.read_csv(xcsvfile, sep=',')
-X = df.to_numpy()
-y = np.load(ynpyfile)
+y = np.load(args.y)
+
+if args.csv is not None:
+    df = pd.read_csv(args.csv, sep=',')
+    X = df.values
+else:
+    X1 = np.load(args.x)
+    df = pd.read_csv(args.prob, sep=',')
+    X2 = df.values
+    X = np.hstack([X1, X2])
 
 scores = []
 for seed in tqdm(range(50)):
