@@ -32,6 +32,11 @@ def parameter_parser():
                         default = "./output/assignments/food.json",
 	                help = "Assignment path.")
 
+    parser.add_argument("--prob-assignment-output",
+                        nargs = "?",
+                        default = "./output/assignments/food_probs.json",
+	                help = "Prob assignment path.")
+
     parser.add_argument("--dump-matrices",
                         type = bool,
                         default = True,

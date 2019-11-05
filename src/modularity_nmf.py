@@ -113,8 +113,10 @@ class MNMF:
         json_dumper(self.logs, self.args.log_output)
         loss_printer(self.logs)
         if self.args.dump_matrices:
+            self.prob_assignments = pd.DataFrame(session.run(self.H, feed_dict=feed_dict), columns = map(lambda x: "X_"+ str(x), range(self.args.clusters)))
             self.optimal_clusters = pd.DataFrame(session.run(self.C, feed_dict=feed_dict), columns = map(lambda x: "X_"+ str(x), range(self.args.dimensions)))
             self.optimal_node_representations = pd.DataFrame(session.run(self.U, feed_dict=feed_dict), columns = map(lambda x: "X_"+ str(x), range(self.args.dimensions)))
+            self.prob_assignments.to_csv(self.args.prob_assignment_output, index = None)
             self.optimal_clusters.to_csv(self.args.cluster_mean_output, index = None)
             self.optimal_node_representations.to_csv(self.args.embedding_output, index = None)
 
